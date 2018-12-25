@@ -4,7 +4,6 @@ from firebase import firebase
 from firebase_admin import credentials
 from firebase_admin import db
 
-
 # THIS is the magic. This local private file is what allows me to read and write to database
 cred = credentials.Certificate("/users/ezraj/OneDrive/Documents/firebase/secret.json")
 
@@ -19,6 +18,3 @@ firebase_admin.initialize_app(cred, {
 
 # auth = firebase.auth()
 ref = db.reference('boi').set("this is a new test with admin")
-
-
-
