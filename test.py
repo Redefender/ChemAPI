@@ -16,5 +16,3 @@ firebase_admin.initialize_app(cred, {
     "messagingSenderId": "219386075120"
 })
 
-# auth = firebase.auth()
-ref = db.reference('boi').set("this is a new test with admin")

@@ -40,28 +40,6 @@ def answer_one():
     root = db.reference()
     query_data = root.get('2')
 
-    # convert all strings within question list to ints
-    # questions = map(int, questions)
-
-    # get the answers for each question (also a dictionary of lists) probably going to use mongodb or firebase
-    # test_answer = [
-    #     {"This is NOT an answer, just to fix off by one errors"},
-    #     {"answer": "this is the answer for question 1"},
-    #     {"answer": "this is the answer for question 2"},
-    #     {"answer": "this is the answer for question 3"},
-    #     {"answer": "this is the answer for question 4"},
-    #     {"answer": "this is the answer for question 5"},
-    #     {"answer": "this is the answer for question 6"},
-    #     {"answer": "this is the answer for question 7"},
-    #
-    # ]
-
-    # create a dictionary of lists
-    response_dictionary = defaultdict(list)
-
-    # for i in questions:
-    #     response_dictionary[i].append(test_answer[i])
-
     return jsonify({"lab": "Lab One", "answers": [
         {
             "answer": "this should change",
