@@ -7,6 +7,7 @@ from firebase_admin import credentials
 from firebase_admin import db
 from RequestData import RequestData
 
+# THIS is the magic. This local private file is what allows me to read and write to database
 cred = credentials.Certificate("/users/ezraj/OneDrive/Documents/firebase/secret.json")
 
 firebase_admin.initialize_app(cred, {
@@ -37,7 +38,7 @@ def answer_one():
 
     # request proper lab
     root = db.reference()
-    query_data = root.child("4").get()
+    query_data = jsonify(root.child("labs").child("4").get())
 
     return query_data
 

@@ -17,5 +17,5 @@ firebase_admin.initialize_app(cred, {
 })
 
 root = db.reference()
-query_data = root.child("4").get()
+query_data = root.child("labs").child("4").get()
 print(query_data)
