@@ -38,7 +38,7 @@ def answer_one():
 
     # request proper lab
     root = db.reference()
-    query_data = jsonify(root.child("labs").child("4").get())
+    query_data = jsonify(root.child("labs").child("1").get())
 
     return query_data
 
