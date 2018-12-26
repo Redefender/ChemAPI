@@ -4,18 +4,19 @@ from firebase import firebase
 from firebase_admin import credentials
 from firebase_admin import db
 
-# THIS is the magic. This local private file is what allows me to read and write to database
-cred = credentials.Certificate("/users/ezraj/OneDrive/Documents/firebase/secret.json")
 
-firebase_admin.initialize_app(cred, {
-    "apiKey": "AIzaSyAnqidILVhAGjxg5Ya3AJhWtmGR5RvJCMY",
-    "authDomain": "chemdata-a814d.firebaseapp.com",
-    "databaseURL": "https://chemdata-a814d.firebaseio.com",
-    "projectId": "chemdata-a814d",
-    "storageBucket": "chemdata-a814d.appspot.com",
-    "messagingSenderId": "219386075120"
-})
+class Employee:
 
-root = db.reference()
-query_data = root.child("labs").child("4").get()
-print(query_data)
+    def __init__(self, first, last, pay):
+        self.first = first
+        self.last = last
+        self.pay = pay
+
+    def full_name(self):
+        return '{} {}'.format(self.first, self.last)
+
+
+emp_1 = Employee('Ezra', 'Jesalva', 50000)
+emp_2 = Employee('Corey','Shaefer', 65000)
+print(emp_2.full_name())
+print('{} is loaded through statically'.format(Employee.full_name(emp_1)))

@@ -1,8 +1,6 @@
 from flask import Flask, jsonify, request
-from collections import defaultdict
 import firebase_admin
 from flask_cors import CORS
-import pyrebase
 from firebase_admin import credentials
 from firebase_admin import db
 from RequestData import RequestData
@@ -30,7 +28,10 @@ def hello():
 
 @app.route('/lab-one', methods=['GET', 'POST'])
 def answer_one():
-    if request.data == 'POST':
+
+    data = ''
+    if request.method == 'POST':
+        return 'it is a post'
         data = request.get_json()
 
     # parse into object
@@ -40,7 +41,7 @@ def answer_one():
     root = db.reference()
     query_data = jsonify(root.child("labs").child("1").get())
 
-    return query_data
+    return data
 
 
 if __name__ == "__main__":
