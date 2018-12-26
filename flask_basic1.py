@@ -7,8 +7,6 @@ from firebase_admin import credentials
 from firebase_admin import db
 from RequestData import RequestData
 
-
-
 cred = credentials.Certificate("/users/ezraj/OneDrive/Documents/firebase/secret.json")
 
 firebase_admin.initialize_app(cred, {
@@ -23,6 +21,7 @@ firebase_admin.initialize_app(cred, {
 app = Flask(__name__)
 CORS(app)
 
+
 @app.route("/")
 def hello():
     return jsonify({"about": "Hello World!"})
@@ -33,25 +32,15 @@ def answer_one():
     if request.data == 'POST':
         data = request.get_json()
 
-    #parse into object
+    # parse into object
     request_data = RequestData("one", "two", "3")
 
-    #request proper lab
+    # request proper lab
     root = db.reference()
-    query_data = root.get('2')
+    query_data = root.child("4").get()
 
-    return jsonify({"lab": "Lab One", "answers": [
-        {
-            "answer": "this should change",
-            "identifier": ".",
-            "value": "question"
-        },
-        {
-            "answer": "3",
-            "identifier": ".",
-            "value": "question"
-        }
-    ]})
+    return query_data
+
 
 if __name__ == "__main__":
     app.run()

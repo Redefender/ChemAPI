@@ -16,3 +16,6 @@ firebase_admin.initialize_app(cred, {
     "messagingSenderId": "219386075120"
 })
 
+root = db.reference()
+query_data = root.child("4").get()
+print(query_data)
