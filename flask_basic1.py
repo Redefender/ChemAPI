@@ -51,11 +51,12 @@ def sign_in():
     data = ''
     if request.method == 'POST':
         data = request.get_json()
-    user = my_auth.sign_in_with_email_and_password('thiswillgetfilled',
-                                                   'thiswillgetfilled')  # need to use firebase.auth()
+        print(data)
+    user = my_auth.sign_in_with_email_and_password(data['user'],
+                                                   data['password'])  # need to use firebase.auth()
     global token
     token = user['idToken']
-    return 'signed in?'
+    return jsonify(user)
 
 
 @app.route('/lab-one', methods=['GET', 'POST'])
@@ -67,15 +68,12 @@ def answer_one():
     isPost = False
     if request.method == 'POST':
         isPost = True
-        # data = jsonify(request.get_json())
-        root = db.reference()
+        data = jsonify(request.get_json())
         authenticated = db.reference("test").get()
 
     # parse into object
-    # request_data = RequestData(data.data["lab"], "2", "3")
 
     # request proper lab
-    lab_root = user_db.child("labs")
     # query_data = jsonify(lab_root.child(request_data.lab).get())
 
     return jsonify(authenticated)
