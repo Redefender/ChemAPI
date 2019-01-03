@@ -7,7 +7,7 @@ from firebase_admin import db
 from firebase_admin import auth
 from RequestData import RequestData
 
-# THIS is the magic. This local private file is what allows me to read and write to database
+# THIS is the magic. This local private file is what allows me to use firebase_admin (further authentication implements auth module)
 cred = credentials.Certificate("/users/ezraj/OneDrive/Documents/firebase/secret.json")
 
 config = {
@@ -52,20 +52,37 @@ def sign_in():
     if request.method == 'POST':
         data = request.get_json()
         print(data)
-    user = my_auth.sign_in_with_email_and_password(data['user'],
-                                                   data['password'])  # need to use firebase.auth()
+    try:
+        user = my_auth.sign_in_with_email_and_password(data['user'],
+                                                  data['password'])  # need to use firebase.auth()
+    except Exception as e:
+        return str(e)
     global token
     token = user['idToken']
     return jsonify(user)
 
+@app.route('/check-signed-in')
+def check_signed_in():
+    try:
+        decoded_token = auth.verify_id_token(token)
+    except Exception as e:
+        print(e)
+        return str(e)
+    else:
+        return "YES"
 
-@app.route('/lab-one', methods=['GET', 'POST'])
+
+@app.route('/lab/1', methods=['GET', 'POST'])
 def answer_one():
     data = ''
 
     print(token)
-    decoded_token = auth.verify_id_token(token)
+    try:
+        decoded_token = auth.verify_id_token(token)
+    except Exception as e:
+        print('can''t authenticate')
     isPost = False
+    authenticated = ''
     if request.method == 'POST':
         isPost = True
         data = jsonify(request.get_json())
@@ -78,6 +95,9 @@ def answer_one():
 
     return jsonify(authenticated)
 
+@app.route('/lab/<lab_num>')
+def get_lab(lab_num):
+    return "You have accessed lab {}".format(lab_num)
 
 if __name__ == "__main__":
     app.run()
